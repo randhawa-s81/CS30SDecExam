@@ -1,5 +1,5 @@
 /********************************************************************
- * Programmer:	Samajeet Randhawa 
+ * Programmer:    Samajeet Randhawa 
  * Class:  CS30S
  *
  * Assignment: Dec Exam 
@@ -13,13 +13,16 @@ public class Employee {
     //*** Class Variables ***
 
         private static int nextId = 1000; 
+        
+        private static int maxRegHours = 40; 
+        private static double otIncrement = 1.5; 
 
     //*** Instance Variables ***
 
         private int hoursWorked = 0;  // number of hours worked  
         private double hourlyWage = 0.0;   // hourly wage 
         private int id = 0;           // id if this employee 
-
+        
     //*** Constructors ***
 
     public Employee(){
@@ -37,6 +40,7 @@ public class Employee {
     }// end default/no arconstructor
 
     //*** Getters ***
+    
     /*****************************************
      * Description: get
      * 
@@ -70,7 +74,36 @@ public class Employee {
     public int getId(){
         return id; 
     }// end getId
-
+    
+    //*** other methods *** 
+    
+    public double getRegPay(){
+        double a = 0.0; 
+    if(this.hoursWorked <= maxRegHours){
+         a = this.hoursWorked * this.hourlyWage; 
+    }// end of if 
+    else{
+        
+    } // end else 
+    return a; 
+    }// end getRegPay 
+    
+    public double getOtPay(){
+        double a = 0.0; 
+        double b = 0.0; // variable for over time pay calculations 
+        if(this.hoursWorked >= maxRegHours){
+            a = this.hourlyWage * this.hoursWorked; 
+            b = a * otIncrement; 
+        }// end if structure 
+        return b; 
+    }// end getOtPay
+    
+    public double getGrossPay(){
+        double grossPay = 0.0; 
+        grossPay = getOtPay() + getRegPay();
+        return grossPay; 
+    }// end getGrossPay
+    
     //*** Setters ***
 
     public void setHoursWorked(){
@@ -81,12 +114,12 @@ public class Employee {
         this.hourlyWage = hourlyWage; 
     }// end setHourlyWage
 
-    //*** other methods *** 
 
     @Override 
     public String toString(){
         String st = "";
-        st = (""+this.hourlyWage + this.hoursWorked + this.id);
+        st = ("" + this.id + this.hoursWorked + this.hourlyWage + getRegPay() + getOtPay() + getGrossPay());
+        
         return st; 
-    }
+    }// 
 } // end of public class
